@@ -3,768 +3,381 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Nilu 💜</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
+<title>For Ruksar 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --purple: #7c3aed;
-    --purple-light: #a855f7;
-    --purple-glow: #c084fc;
-    --gold: #fbbf24;
-    --gold-light: #fde68a;
-    --pink: #f472b6;
-    --dark: #0a0612;
-    --dark2: #120a24;
-    --white: #f5f0ff;
-  }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',sans-serif;
+  background:#fff9fb;
+  color:#3d1c52;
+  overflow-x:hidden;
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* floating bg */
+.floaters{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.floater{position:absolute;opacity:0;animation:rise linear infinite}
+@keyframes rise{
+  0%{transform:translateY(105vh) rotate(0deg);opacity:0}
+  8%{opacity:.45}
+  92%{opacity:.3}
+  100%{transform:translateY(-8vh) rotate(360deg);opacity:0}
+}
 
-  html { scroll-behavior: smooth; }
+/* hero */
+.hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:2rem;
+  background:radial-gradient(ellipse at 50% 40%,#fce7f3 0%,#fff9fb 65%);
+}
+.hero-tag{
+  display:inline-block;
+  background:linear-gradient(135deg,#f9a8d4,#c084fc);
+  color:white;font-size:.74rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:.45rem 1.4rem;border-radius:50px;
+  margin-bottom:1.8rem;
+  box-shadow:0 4px 20px #f9a8d455;
+  animation:popIn .8s cubic-bezier(.34,1.56,.64,1) both;
+}
+.hero-name{
+  font-family:'Pacifico',cursive;
+  font-size:clamp(4.5rem,14vw,9.5rem);
+  background:linear-gradient(135deg,#ec4899 0%,#a855f7 55%,#fb923c 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1.05;
+  animation:popIn .8s .15s cubic-bezier(.34,1.56,.64,1) both;
+  filter:drop-shadow(0 6px 30px #f472b640);
+}
+.hero-line{
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(1.3rem,4vw,2rem);
+  color:#a855f7;margin-top:.7rem;font-weight:600;
+  animation:popIn .8s .3s cubic-bezier(.34,1.56,.64,1) both;
+}
+.dist-badge{
+  margin-top:2rem;
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:white;border:1.5px solid #fce7f3;
+  border-radius:50px;padding:.6rem 1.5rem;
+  font-size:.9rem;font-weight:600;color:#c084fc;
+  box-shadow:0 4px 20px #f9a8d430;
+  animation:popIn .8s .5s cubic-bezier(.34,1.56,.64,1) both;
+}
+.arrow{margin-top:3rem;font-size:1.8rem;color:#f9a8d4;animation:bob 2s ease-in-out infinite,popIn .8s .7s both}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+@keyframes popIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
 
-  body {
-    background: var(--dark);
-    font-family: 'Nunito', sans-serif;
-    color: var(--white);
-    overflow-x: hidden;
-    cursor: none;
-  }
+/* ribbon */
+.ribbon{position:relative;z-index:1;background:#fdf4ff;padding:.9rem 0;overflow:hidden;border-top:1px solid #fce7f3;border-bottom:1px solid #fce7f3}
+.ribbon-inner{display:flex;gap:2.5rem;white-space:nowrap;animation:slide 20s linear infinite;width:max-content}
+.ribbon-item{font-family:'Dancing Script',cursive;font-size:1.1rem;color:#a855f7}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  /* Custom cursor */
-  .cursor {
-    width: 16px; height: 16px;
-    background: var(--gold);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.15s, width 0.2s, height 0.2s;
-    mix-blend-mode: difference;
-    transform: translate(-50%, -50%);
-  }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 2px solid var(--purple-glow);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.08s, left 0.1s, top 0.1s;
-    transform: translate(-50%, -50%);
-  }
+/* page */
+.page{position:relative;z-index:1}
+.sec{max-width:840px;margin:0 auto;padding:5rem 1.5rem}
+.sec-tag{font-size:.74rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#c084fc;margin-bottom:.5rem}
+.sec-title{font-family:'Dancing Script',cursive;font-size:clamp(2rem,6vw,3.2rem);color:#3d1c52;margin-bottom:1.2rem;font-weight:700}
+.sec-body{font-size:1rem;line-height:1.95;color:#7e22ce;font-weight:300}
 
-  /* ── PARTICLE BACKGROUND ── */
-  #particles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    animation: particleDrift var(--d) ease-in-out infinite alternate;
-    opacity: 0.4;
-  }
-  @keyframes particleDrift {
-    from { transform: translateY(0) translateX(0) scale(1); opacity: 0.2; }
-    to   { transform: translateY(-30px) translateX(15px) scale(1.3); opacity: 0.6; }
-  }
+/* card */
+.card{
+  background:white;border-radius:1.8rem;padding:2.2rem;
+  border:1.5px solid #fce7f3;
+  box-shadow:0 8px 40px #f9a8d425;
+  transition:transform .3s,box-shadow .3s;
+  position:relative;overflow:hidden;margin-top:1.2rem;
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 60px #f9a8d440}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3.5px;background:linear-gradient(90deg,#ec4899,#a855f7,#fb923c)}
+.card-icon{font-size:2.5rem;margin-bottom:.7rem;display:block}
+.card-title{font-family:'Dancing Script',cursive;font-size:1.7rem;color:#3d1c52;margin-bottom:.5rem;font-weight:700}
+.card-text{font-size:.97rem;line-height:1.9;color:#7e22ce;font-weight:300}
 
-  /* Stars */
-  .star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    animation: twinkle var(--d) ease-in-out infinite alternate;
-  }
-  @keyframes twinkle {
-    from { opacity: 0.1; transform: scale(0.7); }
-    to   { opacity: 0.9; transform: scale(1.3); }
-  }
+/* look grid */
+.look-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:2rem}
+@media(max-width:500px){.look-grid{grid-template-columns:1fr}}
+.look-item{
+  background:white;border-radius:1.4rem;padding:1.6rem 1.2rem;
+  border:1.5px solid #fce7f3;text-align:center;
+  box-shadow:0 4px 20px #f9a8d420;
+  transition:transform .25s;
+}
+.look-item:hover{transform:scale(1.05)}
+.look-emoji{font-size:2.2rem;margin-bottom:.5rem;display:block}
+.look-label{font-family:'Dancing Script',cursive;font-size:1.2rem;color:#3d1c52;font-weight:700}
+.look-sub{font-size:.82rem;color:#a855f7;line-height:1.5;margin-top:.25rem}
 
-  /* Floating purple notes */
-  .note {
-    position: fixed;
-    font-size: var(--s);
-    animation: noteFloat var(--d) linear infinite;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 1;
-  }
-  @keyframes noteFloat {
-    0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-    10%  { opacity: 0.8; }
-    90%  { opacity: 0.5; }
-    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
-  }
+/* pills */
+.pills{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.5rem}
+.pill{
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:white;border:1.5px solid #fce7f3;
+  border-radius:50px;padding:.5rem 1.15rem;
+  font-size:.88rem;font-weight:600;color:#7e22ce;
+  box-shadow:0 3px 12px #f9a8d420;
+  transition:transform .2s,background .2s;
+  cursor:default;
+}
+.pill:hover{transform:scale(1.08);background:#fdf4ff}
 
-  /* ── SECTIONS ── */
-  section { position: relative; z-index: 2; }
+/* distance block */
+.dist-block{
+  background:linear-gradient(135deg,#fdf4ff,#fff0f6);
+  border-radius:2.2rem;padding:2.8rem 2.2rem;margin-top:2rem;
+  border:2px dashed #f9a8d4;text-align:center;
+  position:relative;
+}
+.dist-block::before{
+  content:'🌸';
+  position:absolute;top:-1.1rem;left:50%;transform:translateX(-50%);
+  background:white;padding:.1rem .8rem;
+  border:2px dashed #f9a8d4;border-radius:50px;font-size:1.3rem;
+}
+.dist-text{font-family:'Dancing Script',cursive;font-size:clamp(1.2rem,3.5vw,1.7rem);color:#3d1c52;line-height:1.9;font-weight:600}
+.dist-icons{font-size:1.8rem;margin:1.2rem 0;letter-spacing:.5rem}
 
-  /* ═══════════════════════════
-     HERO
-  ═══════════════════════════ */
-  #hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 40px 20px;
-    background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.3) 0%, transparent 70%);
-  }
+/* message */
+.msg{
+  background:white;border-radius:2.2rem;padding:2.8rem 2.5rem;
+  border:1.5px solid #fce7f3;
+  box-shadow:0 12px 60px #f9a8d430;
+  text-align:center;margin-top:2rem;
+}
+.msg-q{font-size:5rem;font-family:serif;color:#f9a8d4;line-height:.5;margin-bottom:1rem;display:block}
+.msg-text{font-family:'Dancing Script',cursive;font-size:clamp(1.2rem,3.5vw,1.75rem);color:#3d1c52;line-height:1.9;font-weight:600}
+.msg-sign{margin-top:1.5rem;font-size:.88rem;color:#c084fc;font-weight:700;letter-spacing:.12em}
 
-  .crown { font-size: 3rem; animation: crownBounce 2s ease-in-out infinite; margin-bottom: 10px; }
-  @keyframes crownBounce {
-    0%,100% { transform: translateY(0) rotate(-5deg); }
-    50%      { transform: translateY(-12px) rotate(5deg); }
-  }
+/* divider */
+.divider{text-align:center;padding:1rem 0;font-size:1.4rem;color:#f9a8d4;letter-spacing:.8rem;opacity:.5;position:relative;z-index:1}
 
-  .hero-tag {
-    font-size: 0.8rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.3s forwards;
-  }
+/* footer */
+footer{position:relative;z-index:1;text-align:center;padding:3rem 1rem 4.5rem;background:linear-gradient(0deg,#fce7f3,#fff9fb)}
+.footer-name{font-family:'Pacifico',cursive;font-size:2.4rem;background:linear-gradient(135deg,#ec4899,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-line{font-family:'Dancing Script',cursive;font-size:1.25rem;color:#a855f7;margin-top:.6rem}
+.footer-em{margin-top:1.5rem;font-size:1.8rem;letter-spacing:.5rem;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 
-  h1.hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 10vw, 7rem);
-    line-height: 1.1;
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.6s forwards;
-  }
-  h1.hero-title .name {
-    display: block;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: none;
-    filter: drop-shadow(0 0 30px rgba(251,191,36,0.5));
-  }
-  h1.hero-title .for {
-    font-style: italic;
-    font-size: 0.5em;
-    color: var(--purple-glow);
-    -webkit-text-fill-color: var(--purple-glow);
-  }
+/* reveal */
+.rev{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rev.on{opacity:1;transform:translateY(0)}
 
-  .hero-sub {
-    font-size: 1.1rem;
-    color: rgba(245,240,255,0.6);
-    max-width: 400px;
-    line-height: 1.7;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.9s forwards;
-    margin-bottom: 40px;
-  }
-
-  /* JK bunny animated */
-  .jk-bunny {
-    font-size: 5rem;
-    animation: bunnyHop 1.5s ease-in-out infinite;
-    display: inline-block;
-    opacity: 0;
-    animation: bunnyHop 1.5s ease-in-out infinite, fadeUp 0.8s ease 1.2s forwards;
-  }
-  @keyframes bunnyHop {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    30%      { transform: translateY(-20px) rotate(-5deg); }
-    60%      { transform: translateY(-10px) rotate(5deg); }
-  }
-
-  .scroll-down {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 2px;
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-  @keyframes scrollPulse {
-    0%,100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
-    50%      { opacity: 0.8; transform: translateX(-50%) translateY(6px); }
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ═══════════════════════════
-     JUNGKOOK QUOTE BANNER
-  ═══════════════════════════ */
-  #jk-quote {
-    padding: 60px 20px;
-    text-align: center;
-    background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(168,85,247,0.05));
-    border-top: 1px solid rgba(124,58,237,0.2);
-    border-bottom: 1px solid rgba(124,58,237,0.2);
-  }
-  .jk-quote-text {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(1.2rem, 3vw, 2rem);
-    color: var(--purple-glow);
-    max-width: 700px;
-    margin: 0 auto 16px;
-    line-height: 1.6;
-    text-shadow: 0 0 30px rgba(192,132,252,0.3);
-  }
-  .jk-quote-by {
-    font-size: 0.85rem;
-    color: var(--gold);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  /* ═══════════════════════════
-     MEMORIES
-  ═══════════════════════════ */
-  #memories {
-    padding: 80px 20px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 5vw, 3rem);
-    text-align: center;
-    margin-bottom: 50px;
-  }
-  .section-title .emoji { display: block; font-size: 2.5rem; margin-bottom: 10px; }
-  .section-title .gold { color: var(--gold); }
-  .section-title .purple { color: var(--purple-glow); }
-
-  .memory-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  .memory-card {
-    background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(168,85,247,0.05));
-    border: 1px solid rgba(124,58,237,0.25);
-    border-radius: 24px;
-    padding: 30px 24px;
-    text-align: center;
-    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
-    backdrop-filter: blur(10px);
-  }
-  .memory-card:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 30px 60px rgba(124,58,237,0.3);
-    border-color: var(--purple-light);
-  }
-  .memory-card .mem-icon { font-size: 2.8rem; margin-bottom: 16px; display: block; }
-  .memory-card h3 { font-size: 1rem; font-weight: 900; color: var(--gold); margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
-  .memory-card p { font-size: 0.95rem; color: rgba(245,240,255,0.7); line-height: 1.6; }
-
-  /* ═══════════════════════════
-     LOVE LETTER
-  ═══════════════════════════ */
-  #letter {
-    padding: 80px 20px;
-    background: radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 70%);
-  }
-  .letter-wrap {
-    max-width: 650px;
-    margin: 0 auto;
-    background: linear-gradient(145deg, rgba(18,10,36,0.9), rgba(10,6,18,0.95));
-    border: 1px solid rgba(124,58,237,0.3);
-    border-radius: 30px;
-    padding: 50px 40px;
-    position: relative;
-    box-shadow: 0 0 80px rgba(124,58,237,0.2), inset 0 0 40px rgba(124,58,237,0.05);
-  }
-  .letter-wrap::before {
-    content: '💜';
-    position: absolute;
-    top: -20px; left: 50%;
-    transform: translateX(-50%);
-    font-size: 2.5rem;
-    animation: heartbeat 1.5s ease-in-out infinite;
-  }
-  @keyframes heartbeat {
-    0%,100% { transform: translateX(-50%) scale(1); }
-    50%      { transform: translateX(-50%) scale(1.3); }
-  }
-  .letter-dear {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.5rem;
-    color: var(--gold);
-    margin-bottom: 24px;
-  }
-  .letter-body {
-    font-size: 1.05rem;
-    line-height: 1.9;
-    color: rgba(245,240,255,0.85);
-  }
-  .letter-body .hl { color: var(--purple-glow); font-weight: 800; }
-  .letter-body .gold { color: var(--gold); font-weight: 800; }
-  .letter-sign {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.3rem;
-    color: var(--pink);
-    margin-top: 30px;
-    text-align: right;
-  }
-
-  /* ═══════════════════════════
-     FUN JUNGKOOK SECTION
-  ═══════════════════════════ */
-  #jk-fun {
-    padding: 80px 20px;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .jk-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-    margin-top: 40px;
-  }
-  .jk-card {
-    border-radius: 24px;
-    overflow: hidden;
-    border: 1px solid rgba(168,85,247,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-  }
-  .jk-card:hover { transform: scale(1.05) rotate(-1deg); box-shadow: 0 20px 50px rgba(124,58,237,0.4); }
-  .jk-card-img {
-    height: 180px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .jk-card-img .bg-emoji { position: absolute; font-size: 9rem; opacity: 0.1; animation: bgSpin 8s linear infinite; }
-  @keyframes bgSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-  .jk-card-img .main-emoji { position: relative; z-index: 1; animation: wiggle 2s ease-in-out infinite; }
-  @keyframes wiggle { 0%,100%{transform:rotate(-8deg) scale(1)} 50%{transform:rotate(8deg) scale(1.1)} }
-  .jk-card-body { padding: 20px; text-align: left; }
-  .jk-card-body .tag { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-  .jk-card-body p { font-size: 0.95rem; color: rgba(245,240,255,0.8); line-height: 1.5; font-weight: 600; }
-
-  /* ═══════════════════════════
-     PROMISE SECTION
-  ═══════════════════════════ */
-  #promise {
-    padding: 80px 20px;
-    background: linear-gradient(180deg, transparent, rgba(124,58,237,0.08), transparent);
-  }
-  .promise-container {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .promise-items {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 40px;
-  }
-  @media(max-width:500px) { .promise-items { grid-template-columns: 1fr; } }
-  .promise-item {
-    background: rgba(124,58,237,0.08);
-    border: 1px solid rgba(124,58,237,0.2);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: left;
-    transition: border-color 0.3s, transform 0.3s;
-  }
-  .promise-item:hover { border-color: var(--purple-light); transform: translateY(-4px); }
-  .promise-item .p-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
-  .promise-item p { font-size: 0.9rem; color: rgba(245,240,255,0.75); line-height: 1.5; }
-
-  /* ═══════════════════════════
-     FINAL CTA
-  ═══════════════════════════ */
-  #finale {
-    padding: 100px 20px;
-    text-align: center;
-  }
-  .finale-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 7vw, 5rem);
-    margin-bottom: 16px;
-    background: linear-gradient(135deg, var(--gold), var(--purple-glow), var(--pink));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradMove 4s ease-in-out infinite alternate;
-  }
-  @keyframes gradMove { from{filter:hue-rotate(0deg)} to{filter:hue-rotate(30deg)} }
-  .finale-sub { font-size: 1.1rem; color: rgba(245,240,255,0.5); margin-bottom: 50px; }
-
-  .big-btn {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 900;
-    font-size: 1.3rem;
-    padding: 22px 55px;
-    background: linear-gradient(135deg, var(--purple), var(--purple-light));
-    border: none;
-    border-radius: 100px;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 10px 40px rgba(124,58,237,0.5);
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
-    overflow: hidden;
-    letter-spacing: 0.5px;
-  }
-  .big-btn::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 60%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-  }
-  .big-btn:hover::after { left: 150%; }
-  .big-btn:hover { transform: scale(1.07); box-shadow: 0 20px 60px rgba(124,58,237,0.7); }
-  .big-btn:active { transform: scale(0.97); }
-
-  #btnResponse {
-    margin-top: 24px;
-    font-size: 1.1rem;
-    min-height: 30px;
-    color: var(--gold);
-    font-weight: 800;
-    transition: opacity 0.3s;
-  }
-
-  /* Confetti */
-  .confetti-piece {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    animation: confettiFall var(--d) ease-out forwards;
-    border-radius: var(--r);
-  }
-  @keyframes confettiFall {
-    0%   { transform: translateY(-10px) rotate(0deg) scale(1); opacity: 1; }
-    100% { transform: translateY(105vh) rotate(var(--rot)) scale(0.5); opacity: 0; }
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 40px 20px 60px;
-    color: rgba(245,240,255,0.2);
-    font-size: 0.85rem;
-    border-top: 1px solid rgba(124,58,237,0.1);
-  }
-  footer .heart { color: var(--pink); animation: heartbeat2 1s ease-in-out infinite; display: inline-block; }
-  @keyframes heartbeat2 { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
-  footer .gold { color: var(--gold); }
+/* sparkle */
+.sp{position:fixed;pointer-events:none;z-index:999;width:8px;height:8px;border-radius:50%;animation:spark .55s ease forwards}
+@keyframes spark{0%{transform:scale(0);opacity:1}100%{transform:scale(3.5);opacity:0}}
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div id="particles"></div>
+<div class="floaters" id="fl"></div>
 
-<!-- ═══ HERO ═══ -->
-<section id="hero">
-  <div class="crown">👑</div>
-  <p class="hero-tag">✦ A surprise from Faiz ✦</p>
-  <h1 class="hero-title">
-    <span class="for">For my</span>
-    <span class="name">Nilu 💜</span>
-  </h1>
-  <p class="hero-sub">You said yes and my whole world got brighter. This is for you — my favourite person. 🐰</p>
-  <div class="jk-bunny">🐰</div>
-  <div class="scroll-down">↓ &nbsp; scroll &nbsp; ↓</div>
-</section>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">✨ A Little Something Just for You ✨</div>
+  <h1 class="hero-name">Ruksar</h1>
+  <p class="hero-line">my favourite person, miles away 🌸</p>
+  <div class="dist-badge">📍 Far in distance &nbsp;·&nbsp; 💕 Close in heart</div>
+  <div class="arrow">↓</div>
+</div>
 
-<!-- ═══ JK QUOTE ═══ -->
-<section id="jk-quote">
-  <div class="jk-quote-text">
-    "I want to be someone who is like a warm and soft light to the people around me."
+<!-- RIBBON -->
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-inner">
+    <span class="ribbon-item">🌸 Wonderful</span>
+    <span class="ribbon-item">🎤 Singer</span>
+    <span class="ribbon-item">💫 Talented</span>
+    <span class="ribbon-item">🌙 Dreamer</span>
+    <span class="ribbon-item">🦋 Free Spirit</span>
+    <span class="ribbon-item">🌺 Beautiful</span>
+    <span class="ribbon-item">✨ Gifted</span>
+    <span class="ribbon-item">💐 Kind Soul</span>
+    <span class="ribbon-item">🌸 Wonderful</span>
+    <span class="ribbon-item">🎤 Singer</span>
+    <span class="ribbon-item">💫 Talented</span>
+    <span class="ribbon-item">🌙 Dreamer</span>
+    <span class="ribbon-item">🦋 Free Spirit</span>
+    <span class="ribbon-item">🌺 Beautiful</span>
+    <span class="ribbon-item">✨ Gifted</span>
+    <span class="ribbon-item">💐 Kind Soul</span>
   </div>
-  <div class="jk-quote-by">— Jeon Jungkook 🐰 &nbsp;·&nbsp; Just like you are to me, Nilu 💜</div>
-</section>
+</div>
 
-<!-- ═══ MEMORIES ═══ -->
-<section id="memories">
-  <h2 class="section-title">
-    <span class="emoji">✨</span>
-    <span class="gold">Why you're</span> <span class="purple">everything</span>
-  </h2>
-  <div class="memory-grid">
-    <div class="memory-card">
-      <span class="mem-icon">🚭</span>
-      <h3>You Changed Me</h3>
-      <p>Because of you, I never touched a cigarette. Not once. You don't even know how massive that is. You made me better just by being you.</p>
-    </div>
-    <div class="memory-card">
-      <span class="mem-icon">📞</span>
-      <h3>That One Call</h3>
-      <p>That day I was at my lowest... you called immediately. Like you just knew. I will carry that moment with me forever. NEVER forget it.</p>
-    </div>
-    <div class="memory-card">
-      <span class="mem-icon">🛡️</span>
-      <h3>My Safe Place</h3>
-      <p>When the world feels heavy, you make it lighter. You're not just a friend — you're my calm in every storm.</p>
-    </div>
-    <div class="memory-card">
-      <span class="mem-icon">💜</span>
-      <h3>Pure Care</h3>
-      <p>The way you care is rare. Genuinely rare. Most people talk — you actually show up. And I see that. I always have.</p>
-    </div>
+<div class="page">
+
+<!-- DISTANCE -->
+<section class="sec">
+  <div class="rev">
+    <p class="sec-tag">us, always</p>
+    <h2 class="sec-title">Miles Apart, Still Together 🌍</h2>
+    <p class="sec-body">
+      Distance is a funny thing. It tries to separate people — but the best friendships just laugh at that.
+      No matter how many miles sit between us, you're always exactly where you're supposed to be:
+      in my thoughts, in my day, in my world.
+    </p>
   </div>
-</section>
-
-<!-- ═══ LOVE LETTER ═══ -->
-<section id="letter">
-  <h2 class="section-title">
-    <span class="emoji">💌</span>
-    <span class="gold">A letter</span> <span class="purple">for Nilu</span>
-  </h2>
-  <div class="letter-wrap">
-    <div class="letter-dear">Dear Nilu,</div>
-    <div class="letter-body">
-      I know I'm not Jungkook 😅 — but I hope I can be someone who makes you smile just as much.
-      <br><br>
-      You came into my life and quietly changed everything. You made me <span class="hl">want to be better.</span> You made me feel like someone actually cared. And when I was falling apart, you were the voice that pulled me back.
-      <br><br>
-      I said things that hurt you, and I will regret that. But I want you to know — <span class="gold">every single word I say about caring for you is real.</span> No cigarettes. No giving up. No going anywhere.
-      <br><br>
-      You said yes today and I promise — <span class="hl">I will never make you regret that.</span>
-      <br><br>
-      Thank you for being my Nilu. 💜🐰
-    </div>
-    <div class="letter-sign">— Always yours, Faiz 💜</div>
+  <div class="dist-block rev">
+    <div class="dist-icons">🏠 · · · 💕 · · · 🏠</div>
+    <p class="dist-text">
+      "Two people can be far in miles<br>
+      and still share the same sky,<br>
+      the same songs, the same kind of silence<br>
+      that only true friendship understands." 🌙
+    </p>
   </div>
 </section>
 
-<!-- ═══ JK FUN ═══ -->
-<section id="jk-fun">
-  <h2 class="section-title">
-    <span class="emoji">🐰</span>
-    <span class="gold">Jungkook</span> <span class="purple">approved this message</span>
-  </h2>
-  <div class="jk-cards">
+<div class="divider">· · · 🌸 · · ·</div>
 
-    <div class="jk-card" style="background:linear-gradient(135deg,#1a0a30,#0f0620)">
-      <div class="jk-card-img" style="background:linear-gradient(135deg,#2d1060,#1a0a30)">
-        <div class="bg-emoji">🎤</div>
-        <div class="main-emoji">🎶</div>
-      </div>
-      <div class="jk-card-body">
-        <div class="tag">🐰 Jungkook says</div>
-        <p>"Faiz asked me to tell you — you're his favourite person. I said same bro, she sounds great." 😂💜</p>
-      </div>
-    </div>
-
-    <div class="jk-card" style="background:linear-gradient(135deg,#1a1030,#0a0618)">
-      <div class="jk-card-img" style="background:linear-gradient(135deg,#3d1570,#1a0a30)">
-        <div class="bg-emoji">💜</div>
-        <div class="main-emoji">🥺</div>
-      </div>
-      <div class="jk-card-body">
-        <div class="tag">Army approved 💜</div>
-        <p>"Nilu, if Jungkook saw how much Faiz cares about you, even HE would say 'okay bro you got it' 🐰✨"</p>
-      </div>
-    </div>
-
-    <div class="jk-card" style="background:linear-gradient(135deg,#200a30,#0f0520)">
-      <div class="jk-card-img" style="background:linear-gradient(135deg,#4a1080,#200a30)">
-        <div class="bg-emoji">⭐</div>
-        <div class="main-emoji">👑</div>
-      </div>
-      <div class="jk-card-body">
-        <div class="tag">Golden maknae vibes</div>
-        <p>"You stan Jungkook because he's golden. But Faiz thinks YOU'RE the golden one, Nilu. 💜✨"</p>
-      </div>
-    </div>
-
+<!-- HER VOICE -->
+<section class="sec">
+  <div class="rev">
+    <p class="sec-tag">something rare</p>
+    <h2 class="sec-title">Your Voice 🎤</h2>
+    <p class="sec-body">
+      Not everyone is given a voice that carries real feeling in every note. You are.
+      When you sing, it's not just sound — it's something people feel long after the song ends.
+    </p>
+  </div>
+  <div class="card rev">
+    <span class="card-icon">🎤</span>
+    <h3 class="card-title">The Way You Sound</h3>
+    <p class="card-text">Your voice has this warmth that wraps around you like a song you didn't know you needed. Soft where it needs to be, powerful where it matters — the kind of voice that gives goosebumps without even trying.</p>
+  </div>
+  <div class="card rev">
+    <span class="card-icon">🌟</span>
+    <h3 class="card-title">You Sing from Somewhere Real</h3>
+    <p class="card-text">You don't just perform — you feel every word. And when someone sings with their whole heart, people around them feel it too. That's not something you can fake. That's just you.</p>
   </div>
 </section>
 
-<!-- ═══ PROMISES ═══ -->
-<section id="promise">
-  <div class="promise-container">
-    <h2 class="section-title">
-      <span class="emoji">🤞</span>
-      <span class="gold">Faiz's promises</span> <span class="purple">to Nilu</span>
-    </h2>
-    <div class="promise-items">
-      <div class="promise-item">
-        <span class="p-icon">🚭</span>
-        <p>I will never touch a cigarette — because you're the reason I never started.</p>
-      </div>
-      <div class="promise-item">
-        <span class="p-icon">📞</span>
-        <p>I'll always pick up when you call. Always. No matter what.</p>
-      </div>
-      <div class="promise-item">
-        <span class="p-icon">💜</span>
-        <p>I'll never make you feel like your feelings don't matter. Never again.</p>
-      </div>
-      <div class="promise-item">
-        <span class="p-icon">🌙</span>
-        <p>I'll be consistent — not just when things are hard, but every single day.</p>
-      </div>
-      <div class="promise-item">
-        <span class="p-icon">🐰</span>
-        <p>I'll remember every little thing you tell me — because you matter to me.</p>
-      </div>
-      <div class="promise-item">
-        <span class="p-icon">⭐</span>
-        <p>I'll make sure you never regret saying yes today. That's my word. 💜</p>
-      </div>
+<div class="divider">· · · ✨ · · ·</div>
+
+<!-- HER LOOK -->
+<section class="sec">
+  <div class="rev">
+    <p class="sec-tag">the way you are</p>
+    <h2 class="sec-title">The Way You Look 🌺</h2>
+    <p class="sec-body">
+      There's something about you that's genuinely hard to describe — but here's an honest try:
+    </p>
+  </div>
+  <div class="look-grid">
+    <div class="look-item rev">
+      <span class="look-emoji">👁️</span>
+      <div class="look-label">Expressive Eyes</div>
+      <div class="look-sub">They say everything even when you're quiet</div>
+    </div>
+    <div class="look-item rev">
+      <span class="look-emoji">🌺</span>
+      <div class="look-label">Natural Beauty</div>
+      <div class="look-sub">Effortless, real, and genuinely lovely</div>
+    </div>
+    <div class="look-item rev">
+      <span class="look-emoji">✨</span>
+      <div class="look-label">The Way You Smile</div>
+      <div class="look-sub">Lights up the screen even from far away</div>
+    </div>
+    <div class="look-item rev">
+      <span class="look-emoji">🦋</span>
+      <div class="look-label">Your Whole Vibe</div>
+      <div class="look-sub">Soft and confident at the same time</div>
     </div>
   </div>
 </section>
 
-<!-- ═══ FINALE ═══ -->
-<section id="finale">
-  <div class="finale-title">I choose you, Nilu 💜</div>
-  <div class="finale-sub">Every single day. No exceptions. 🐰</div>
-  <button class="big-btn" onclick="celebrate()">💜 Click for a surprise! 💜</button>
-  <div id="btnResponse"></div>
+<div class="divider">· · · 💫 · · ·</div>
+
+<!-- HOBBIES & SKILLS -->
+<section class="sec">
+  <div class="rev">
+    <p class="sec-tag">what you do</p>
+    <h2 class="sec-title">Hobbies &amp; Skills 🛠️</h2>
+    <p class="sec-body">
+      You're someone who actually does things — not just talks about them. Here's what makes you genuinely impressive:
+    </p>
+  </div>
+  <div class="card rev">
+    <span class="card-icon">🎙️</span>
+    <h3 class="card-title">Singing</h3>
+    <p class="card-text">This isn't just a hobby — it's a gift you've worked hard to own. The dedication it takes to actually be good at singing? That's years of pouring yourself into every single note. Respect.</p>
+  </div>
+  <div class="rev" style="margin-top:1.5rem">
+    <p class="sec-body" style="margin-bottom:.5rem">And then there are all the other wonderful things about you:</p>
+    <div class="pills">
+      <div class="pill">🎧 Deep music listener</div>
+      <div class="pill">🌙 Late night vibes</div>
+      <div class="pill">🌸 Makes people feel at ease</div>
+      <div class="pill">💬 Real conversations</div>
+      <div class="pill">🎤 Performs with confidence</div>
+      <div class="pill">✨ Effortlessly herself</div>
+      <div class="pill">🌺 Noticing the little things</div>
+      <div class="pill">💫 Big dreamer</div>
+    </div>
+  </div>
 </section>
 
+<div class="divider">· · · 🌙 · · ·</div>
+
+<!-- MESSAGE -->
+<section class="sec" style="padding-bottom:3rem">
+  <div class="rev">
+    <p class="sec-tag">from me to you</p>
+    <h2 class="sec-title">A Little Note 💌</h2>
+  </div>
+  <div class="msg rev">
+    <span class="msg-q">"</span>
+    <p class="msg-text">
+      Ruksar, even from far away —<br>
+      your voice reaches me,<br>
+      your presence is felt,<br>
+      and your friendship is one of the<br>
+      things I am genuinely grateful for. 🌸<br><br>
+      I made this whole thing just to show you<br>
+      that you matter more than you probably know.
+    </p>
+    <p class="msg-sign">— your friend, always &nbsp;💕</p>
+  </div>
+</section>
+
+</div>
+
+<!-- FOOTER -->
 <footer>
-  Made with a <span class="heart">💜</span> by <span class="gold">Faiz</span> — just for his <span class="gold">Nilu</span> 🐰✨
+  <div class="footer-name">Ruksar 🌸</div>
+  <p class="footer-line">Always in my thoughts, always worth every effort</p>
+  <div class="footer-em">🌸 💕 ✨ 💕 🌸</div>
 </footer>
 
 <script>
-  // Cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top  = my + 'px';
-    ring.style.left = mx + 'px';
-    ring.style.top  = my + 'px';
-  });
+const items=['🌸','✨','💕','🌙','🦋','🌺','⭐','🌼','💫','🌷','🍀','🌟','🎀','🫧'];
+const fl=document.getElementById('fl');
+for(let i=0;i<22;i++){
+  const d=document.createElement('div');
+  d.className='floater';
+  d.textContent=items[Math.floor(Math.random()*items.length)];
+  d.style.cssText=`left:${Math.random()*100}vw;font-size:${.7+Math.random()*.8}rem;animation-duration:${11+Math.random()*16}s;animation-delay:${Math.random()*12}s`;
+  fl.appendChild(d);
+}
 
-  // Particles
-  const pEl = document.getElementById('particles');
-  const purples = ['#7c3aed','#a855f7','#c084fc','#fbbf24','#f472b6'];
-  for (let i = 0; i < 40; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random() * 6 + 2;
-    p.style.cssText = `
-      left:${Math.random()*100}%;
-      top:${Math.random()*100}%;
-      width:${size}px; height:${size}px;
-      background:${purples[Math.floor(Math.random()*purples.length)]};
-      --d:${Math.random()*4+3}s;
-      animation-delay:${Math.random()*4}s;
-    `;
-    pEl.appendChild(p);
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
+},{threshold:.12});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+
+const cols=['#f9a8d4','#c084fc','#fb923c','#86efac','#fbbf24','#a5f3fc'];
+document.addEventListener('click',e=>{
+  for(let i=0;i<5;i++){
+    const s=document.createElement('div');
+    s.className='sp';
+    s.style.cssText=`left:${e.clientX-4+(Math.random()-.5)*36}px;top:${e.clientY-4+(Math.random()-.5)*36}px;background:radial-gradient(circle,${cols[Math.floor(Math.random()*cols.length)]},transparent)`;
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),560);
   }
-  // Stars
-  for (let i = 0; i < 100; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    const size = Math.random() * 2.5 + 0.5;
-    s.style.cssText = `
-      left:${Math.random()*100}%;
-      top:${Math.random()*100}%;
-      width:${size}px; height:${size}px;
-      --d:${Math.random()*3+1}s;
-      animation-delay:${Math.random()*3}s;
-    `;
-    pEl.appendChild(s);
-  }
-
-  // Floating notes
-  const noteEmojis = ['💜','🐰','⭐','✨','💫','🎵','🎶','💜','👑','🌟'];
-  function spawnNote() {
-    const n = document.createElement('div');
-    n.className = 'note';
-    n.textContent = noteEmojis[Math.floor(Math.random()*noteEmojis.length)];
-    const size = Math.random()*16+12;
-    n.style.cssText = `
-      left:${Math.random()*100}%;
-      font-size:${size}px;
-      --s:${size}px;
-      --d:${Math.random()*7+6}s;
-      animation-duration:${Math.random()*7+6}s;
-      animation-delay:${Math.random()*3}s;
-    `;
-    document.body.appendChild(n);
-    setTimeout(() => n.remove(), 14000);
-  }
-  setInterval(spawnNote, 700);
-  for (let i = 0; i < 8; i++) spawnNote();
-
-  // Celebrate
-  const msgs = [
-    "Faiz Loves Nilu 💜🐰",
-    "I Won 🎉",
-    "Even Jungkook approves 🐰✨",
-    "Purple you forever 💜",
-    "Best decision ever! 👑"
-  ];
-  let mi = 0;
-
-  function celebrate() {
-    const colors = ['#7c3aed','#a855f7','#fbbf24','#f472b6','#c084fc','#fde68a','#ffffff'];
-    for (let i = 0; i < 100; i++) {
-      setTimeout(() => {
-        const c = document.createElement('div');
-        c.className = 'confetti-piece';
-        const size = Math.random()*12+5;
-        c.style.cssText = `
-          left:${Math.random()*100}vw;
-          top:-10px;
-          width:${size}px;
-          height:${size}px;
-          background:${colors[Math.floor(Math.random()*colors.length)]};
-          --d:${Math.random()*1.5+1}s;
-          --rot:${Math.random()*720-360}deg;
-          --r:${Math.random()>0.5?'50%':'3px'};
-          animation-delay:${Math.random()*0.5}s;
-        `;
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 2500);
-      }, i * 15);
-    }
-    const btn = document.querySelector('.big-btn');
-    btn.textContent = '🎉 Faiz Genuinely Care About You 💜🐰 🎉';
-    setTimeout(() => btn.textContent = '💜 Click for a surprise! 💜', 3500);
-    document.getElementById('btnResponse').textContent = msgs[mi % msgs.length];
-    mi++;
-  }
-
-  // Intersection observer for cards
-  const allCards = document.querySelectorAll('.memory-card, .jk-card, .promise-item');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        e.target.style.transition = `opacity 0.5s ease ${i*0.1}s, transform 0.5s ease ${i*0.1}s`;
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.15 });
-  allCards.forEach(c => {
-    c.style.opacity = '0';
-    c.style.transform = 'translateY(40px)';
-    obs.observe(c);
-  });
+});
 </script>
 </body>
 </html>
