@@ -36,7 +36,7 @@
       radial-gradient(circle at 20% 10%, rgba(255,255,255,.9) 0, rgba(255,255,255,0) 28%),
       radial-gradient(circle at 80% 20%, rgba(232,180,184,.35) 0, rgba(232,180,184,0) 24%),
       linear-gradient(135deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-low) 100%);
-    height:100vh;
+    min-height:100dvh;
     width:100vw;
     overflow:hidden;
     position:relative;
@@ -51,7 +51,7 @@
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding:32px;
+    padding:24px 20px 112px;
     opacity:0;
     pointer-events:none;
     transition:opacity 1s ease;
@@ -76,7 +76,7 @@
   .scene.active .note-text{ animation:riseIn .9s cubic-bezier(.2,.8,.2,1) both; }
   @keyframes riseIn{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
 
-  #landing{ cursor:pointer; }
+  #landing{ cursor:default; }
   .heart{ width:64px; height:64px; position:relative; animation:pulse 1.8s ease-in-out infinite; }
   .heart svg{ width:100%; height:100%; }
   @keyframes pulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.12); } }
@@ -105,13 +105,14 @@
   .sparkle{ position:absolute; font-size:18px; color:var(--gold); opacity:0; animation:twinkle 2.6s ease-in-out infinite; }
   @keyframes twinkle{ 0%,100%{ opacity:0; transform:scale(.6); } 50%{ opacity:.9; transform:scale(1); } }
 
-  .headline{ font-family:'Caveat',cursive; font-weight:700; font-size:48px; line-height:1.1; margin:0 0 10px; position:relative; z-index:2; text-shadow:0 2px 10px rgba(255,255,255,.4); }
-  .body-text{ font-size:17px; line-height:1.7; max-width:420px; color:var(--ink); position:relative; z-index:2; }
+  .headline{ font-family:'Caveat',cursive; font-weight:700; font-size:clamp(2.2rem, 5vw, 3.2rem); line-height:1.1; margin:0 0 10px; position:relative; z-index:2; text-shadow:0 2px 10px rgba(255,255,255,.4); }
+  .body-text{ font-size:clamp(1rem, 2.3vw, 1.1rem); line-height:1.7; max-width:420px; color:var(--ink); position:relative; z-index:2; }
 
   .gif-slot{
     margin-top:18px;
-    width:min(320px, 84vw);
-    height:340px;
+    width:min(360px, 88vw);
+    height:min(300px, 54vh);
+    max-height:320px;
     border:1px solid rgba(255,255,255,.55);
     border-radius:24px;
     display:flex;
@@ -138,7 +139,7 @@
   .gif-placeholder{ font-size:13px; color:var(--ink-soft); letter-spacing:.04em; text-transform:uppercase; }
 
   .note-text{
-    font-size:17px; line-height:1.8; max-width:440px; min-height:120px;
+    font-size:clamp(1rem, 2.3vw, 1.1rem); line-height:1.8; max-width:440px; min-height:120px;
     color:var(--ink); position:relative; z-index:2; white-space:pre-wrap;
   }
   .note-text .cursor{ display:inline-block; width:2px; background:var(--ink); animation:blink 1s step-end infinite; margin-left:1px; }
@@ -168,16 +169,15 @@
   .skip,
   .prev-btn{
     position:absolute; z-index:5;
-    background:rgba(255,253,249,.82); border:1px solid var(--line); color:var(--ink-soft);
-    font-family:'Nunito',sans-serif; font-size:12px; padding:8px 14px;
-    border-radius:999px; cursor:pointer; opacity:0; pointer-events:none;
+    border:1px solid var(--line); font-family:'Nunito',sans-serif; font-size:14px; font-weight:700; padding:12px 18px;
+    border-radius:999px; cursor:pointer; opacity:1; pointer-events:auto;
     transition:transform .25s ease, box-shadow .25s ease, opacity .25s ease;
-    box-shadow:0 8px 18px rgba(74,55,40,.08);
+    box-shadow:0 10px 22px rgba(74,55,40,.12);
   }
   .skip:hover,
-  .prev-btn:hover{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(74,55,40,.12); }
-  .skip{ bottom:20px; right:20px; }
-  .prev-btn{ bottom:20px; left:20px; }
+  .prev-btn:hover{ transform:translateY(-1px); box-shadow:0 14px 28px rgba(74,55,40,.16); }
+  .skip{ bottom:18px; right:16px; background:linear-gradient(135deg, var(--gold), #D28A20); color:white; min-width:112px; }
+  .prev-btn{ bottom:18px; left:16px; background:rgba(255,253,249,.9); color:var(--ink-soft); min-width:108px; }
   .skip:focus-visible,
   .prev-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
 
@@ -192,7 +192,15 @@
   .replay-btn.show{ opacity:1; transition:opacity .8s ease; }
   .replay-btn:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
 
-  @media (max-width:420px){ .headline{ font-size:38px; } }
+  @media (max-width:640px){
+    .scene{ padding:20px 16px 112px; }
+    .headline{ margin-bottom:12px; }
+    .gif-slot{ width:min(320px, 92vw); height:min(240px, 46vh); max-height:260px; }
+    .skip, .prev-btn{ padding:11px 15px; font-size:13px; min-width:102px; bottom:14px; }
+    .skip{ right:14px; }
+    .prev-btn{ left:14px; }
+  }
+  @media (max-height:720px){ .gif-slot{ height:min(220px, 42vh); } }
   @media (prefers-reduced-motion: reduce){ *{ animation-duration:.01ms !important; } }
 </style>
 </head>
@@ -252,25 +260,16 @@
   let timer = null;
   let sigEl, replayEl;
   let isTyping = false;
-  let touchEnabled = false;
-  let touchTimer = null;
 
   const dotsEl = document.getElementById('dots');
   const skipBtn = document.getElementById('skipBtn');
   const prevBtn = document.getElementById('prevBtn');
   const noteContainer = document.getElementById('noteScenes');
 
-  function enableTouchAfterDelay(){
-    clearTimeout(touchTimer);
-    touchTimer = setTimeout(() => {
-      touchEnabled = true;
-      const hint = document.querySelector('.tap-hint');
-      if(hint && current === 0){
-        hint.textContent = 'Tap anywhere to continue';
-      }
-    }, 5000);
+  const hint = document.querySelector('.tap-hint');
+  if(hint && current === 0){
+    hint.textContent = 'Tap anywhere to continue';
   }
-  enableTouchAfterDelay();
 
   function seedAmbient(el, count){
     for(let i=0;i<count;i++){
@@ -361,13 +360,26 @@
     Array.from(dotsEl.children).forEach((d,i)=> d.classList.toggle('on', i===idx));
     dotsEl.style.opacity = current===0 ? '0' : '1';
 
-    const showNext = current > 0 && current < scenes.length - 1;
-    skipBtn.style.opacity = showNext ? '1' : '0';
-    skipBtn.style.pointerEvents = showNext ? 'auto' : 'none';
-
     const showPrev = current > 0;
-    prevBtn.style.opacity = showPrev ? '1' : '0';
+    prevBtn.style.opacity = showPrev ? '1' : '0.95';
     prevBtn.style.pointerEvents = showPrev ? 'auto' : 'none';
+
+    const showNext = current >= 0;
+    skipBtn.style.opacity = showNext ? '1' : '0.95';
+    skipBtn.style.pointerEvents = showNext ? 'auto' : 'none';
+    skipBtn.textContent = current === scenes.length - 1 ? 'restart' : 'next ›';
+  }
+
+  function updateMedia(){
+    document.querySelectorAll('video').forEach((video)=>{
+      const scene = video.closest('.scene');
+      if(!scene) return;
+      if(scene.classList.contains('active')){
+        video.play().catch(()=>{});
+      } else {
+        video.pause();
+      }
+    });
   }
 
   function showScene(i){
@@ -375,6 +387,7 @@
     scenes.forEach((id,idx)=>{
       document.getElementById(id).classList.toggle('active', idx===i);
     });
+    updateMedia();
     if(i === 2){
       const glow = document.createElement('div');
       glow.style.position='absolute';
@@ -469,41 +482,6 @@
 
   document.addEventListener('keydown', handleKeyboard);
 
-  function isTouchEvent(e){
-    return e.pointerType === 'touch' || e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend';
-  }
-
-  document.addEventListener('touchstart', (e)=>{
-    if(!touchEnabled){
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  document.addEventListener('touchmove', (e)=>{
-    if(!touchEnabled){
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  document.addEventListener('pointerdown', (e)=>{
-    const target = e.target;
-    if(!target) return;
-    if(target.closest('button')) return;
-    if(isTyping) return;
-    if(isTouchEvent(e) && !touchEnabled){
-      e.preventDefault();
-      return;
-    }
-    if(current === 0){
-      showScene(1);
-      return;
-    }
-    if(current < scenes.length - 1){
-      showScene(current + 1);
-    } else {
-      showScene(0);
-    }
-  });
 
   document.addEventListener('click', (e)=>{
     if(e.target && e.target.classList.contains('replay-btn')){
