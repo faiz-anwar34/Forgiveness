@@ -124,7 +124,8 @@
     z-index:2;
     backdrop-filter:blur(6px);
   }
-  .gif-slot img{
+  .gif-slot img,
+  .gif-slot video{
     width:100%;
     height:100%;
     object-fit:cover;
@@ -211,7 +212,7 @@
     <div class="ambient" id="ambient1"></div>
     <div class="headline">A little message<br>for YOU</div>
     <div class="gif-slot">
-      <img src="Scene1.mp4" alt="soft morning scene" loading="eager" draggable="false">
+      <video src="Scene1.mp4" autoplay muted loop playsinline preload="auto" draggable="false"></video>
     </div>
   </div>
 
@@ -220,7 +221,7 @@
     <div class="headline">Good morning, Nilima ☀️</div>
     <p class="body-text">I know yesterday was a lot. I just wanted your morning to start with something soft instead.</p>
     <div class="gif-slot">
-      <img src="cat.mp4" alt="gentle cat scene" loading="eager" draggable="false">
+      <video src="cat.mp4" autoplay muted loop playsinline preload="auto" draggable="false"></video>
     </div>
   </div>
 
