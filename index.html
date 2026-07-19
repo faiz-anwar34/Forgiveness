@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Morning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top:#FDE7C7;
+    --sky-mid:#FFF2E1;
+    --sky-low:#FFF9F2;
+    --card:#FFFDF9;
+    --ink:#4A3728;
+    --ink-soft:#8A7458;
+    --gold:#E7A83F;
+    --sage:#8AA290;
+    --line:#EFD9B8;
+    --rose:#E8B4B8;
+    --mist:#F6E3E7;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Nunito',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 20% 10%, rgba(255,255,255,.9) 0, rgba(255,255,255,0) 28%),
+      radial-gradient(circle at 80% 20%, rgba(232,180,184,.35) 0, rgba(232,180,184,0) 24%),
+      linear-gradient(135deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-low) 100%);
+    height:100vh;
+    width:100vw;
+    overflow:hidden;
+    position:relative;
+  }
+
+  .scene{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 1s ease;
+    isolation:isolate;
+  }
+  .scene::before{
+    content:'';
+    position:absolute;
+    inset:12px;
+    border-radius:30px;
+    border:1px solid rgba(255,255,255,.56);
+    background:linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.03));
+    box-shadow:0 18px 50px rgba(74,55,40,.08);
+    backdrop-filter:blur(10px);
+    z-index:0;
+  }
+  .scene > *{ position:relative; z-index:2; }
+  .scene.active{ opacity:1; pointer-events:auto; }
+  .scene.active .headline{ animation:riseIn .7s cubic-bezier(.2,.8,.2,1) both; }
+  .scene.active .body-text,
+  .scene.active .note-text{ animation:riseIn .9s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes riseIn{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+
+  #landing{ cursor:pointer; }
+  .heart{ width:64px; height:64px; position:relative; animation:pulse 1.8s ease-in-out infinite; }
+  .heart svg{ width:100%; height:100%; }
+  @keyframes pulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.12); } }
+  .tap-hint{ margin-top:18px; font-size:14px; letter-spacing:.03em; color:var(--ink-soft); font-style:italic; animation:softPulse 2s ease-in-out infinite; }
+  @keyframes softPulse{ 0%,100%{ opacity:.75; transform:translateY(2px);} 50%{ opacity:1; transform:translateY(0);} }
+
+  .ambient{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+  .float{
+    position:absolute; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, rgba(255,255,255,0.95), rgba(231,168,63,0.24) 45%, rgba(232,180,184,0.18));
+    opacity:.72; animation:drift linear infinite;
+    filter:blur(0.2px);
+  }
+  .petal{
+    position:absolute; font-size:16px; opacity:0; animation:petalFloat 7s ease-in-out infinite;
+    filter:drop-shadow(0 6px 8px rgba(74,55,40,.12));
+  }
+  @keyframes petalFloat{
+    0%{ transform:translate3d(0,0,0) rotate(0deg); opacity:0; }
+    15%{ opacity:.85; }
+    50%{ transform:translate3d(20px,-60px,0) rotate(18deg); opacity:.95; }
+    100%{ transform:translate3d(45px,-140px,0) rotate(32deg); opacity:0; }
+  }
+  @keyframes drift{ 0%{ transform:translateY(0) translateX(0); } 50%{ transform:translateY(-18px) translateX(10px); } 100%{ transform:translateY(0) translateX(0); } }
+  @keyframes fadeGlow{ from{ opacity:0; } to{ opacity:1; } }
+  .sparkle{ position:absolute; font-size:18px; color:var(--gold); opacity:0; animation:twinkle 2.6s ease-in-out infinite; }
+  @keyframes twinkle{ 0%,100%{ opacity:0; transform:scale(.6); } 50%{ opacity:.9; transform:scale(1); } }
+
+  .headline{ font-family:'Caveat',cursive; font-weight:700; font-size:48px; line-height:1.1; margin:0 0 10px; position:relative; z-index:2; text-shadow:0 2px 10px rgba(255,255,255,.4); }
+  .body-text{ font-size:17px; line-height:1.7; max-width:420px; color:var(--ink); position:relative; z-index:2; }
+
+  .gif-slot{
+    margin-top:18px;
+    width:min(320px, 84vw);
+    height:340px;
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg, rgba(255,253,249,.85), rgba(246,227,231,.5));
+    box-shadow:0 18px 45px rgba(74,55,40,.12), inset 0 1px 0 rgba(255,255,255,.8);
+    overflow:hidden;
+    position:relative;
+    z-index:2;
+    backdrop-filter:blur(6px);
+  }
+  .gif-slot img{ width:100%; height:100%; object-fit:cover; border-radius:24px; }
+  .gif-placeholder{ font-size:13px; color:var(--ink-soft); letter-spacing:.04em; text-transform:uppercase; }
+  .gif-slot video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:24px;
+    background:#000;
+    display:block;
+    pointer-events:none;
+  }
+
+  .note-text{
+    font-size:17px; line-height:1.8; max-width:440px; min-height:120px;
+    color:var(--ink); position:relative; z-index:2; white-space:pre-wrap;
+  }
+  .note-text .cursor{ display:inline-block; width:2px; background:var(--ink); animation:blink 1s step-end infinite; margin-left:1px; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .signature{ margin-top:22px; font-family:'Caveat',cursive; font-size:24px; color:var(--ink); opacity:0; position:relative; z-index:2; }
+  .signature.show{ opacity:1; transition:opacity .8s ease; }
+
+  .heart-fade{
+    margin-top:14px;
+    font-size:34px;
+    color:var(--rose);
+    opacity:0;
+    transform:scale(.8);
+    transition:opacity .8s ease, transform .8s ease;
+    pointer-events:none;
+    z-index:2;
+    position:relative;
+  }
+  .heart-fade.show{ opacity:1; transform:scale(1); }
+  .heart-fade.hide{ opacity:0; transform:scale(.9); }
+
+  .dots{ position:absolute; bottom:22px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:5; }
+  .dots span{ width:6px; height:6px; border-radius:50%; background:var(--line); transition:background .3s ease; }
+  .dots span.on{ background:var(--gold); }
+
+  .skip,
+  .prev-btn{
+    position:absolute; z-index:5;
+    background:rgba(255,253,249,.82); border:1px solid var(--line); color:var(--ink-soft);
+    font-family:'Nunito',sans-serif; font-size:12px; padding:8px 14px;
+    border-radius:999px; cursor:pointer; opacity:0; pointer-events:none;
+    transition:transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+    box-shadow:0 8px 18px rgba(74,55,40,.08);
+  }
+  .skip:hover,
+  .prev-btn:hover{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(74,55,40,.12); }
+  .skip{ bottom:20px; right:20px; }
+  .prev-btn{ bottom:20px; left:20px; }
+  .skip:focus-visible,
+  .prev-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+  .replay-btn{
+    margin-top:26px; font-family:'Nunito',sans-serif; font-weight:700; font-size:13.5px;
+    color:var(--card); background:linear-gradient(135deg, var(--sage), #6E8C71); border:none; padding:11px 22px;
+    border-radius:999px; cursor:pointer; opacity:0; position:relative; z-index:2;
+    transition:transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+    box-shadow:0 10px 22px rgba(138,162,144,.25);
+  }
+  .replay-btn:hover{ transform:translateY(-1px); box-shadow:0 14px 28px rgba(138,162,144,.32); }
+  .replay-btn.show{ opacity:1; transition:opacity .8s ease; }
+  .replay-btn:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
+
+  @media (max-width:420px){ .headline{ font-size:38px; } }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.01ms !important; } }
+</style>
+</head>
+<body>
+
+  <div class="scene active" id="landing">
+    <div class="heart">
+      <svg viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 28C16 28 1 18.5 1 9.3C1 4.2 5 1 9.2 1C12.3 1 14.8 2.8 16 5.4C17.2 2.8 19.7 1 22.8 1C27 1 31 4.2 31 9.3C31 18.5 16 28 16 28Z"
+          stroke="#E3A73A" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+    <div class="tap-hint">Hey, thanks for opening</div>
+  </div>
+
+  <div class="scene" id="scene1">
+    <div class="ambient" id="ambient1"></div>
+    <div class="headline">A little message<br>for YOU</div>
+    <div class="gif-slot">
+      <video autoplay muted playsinline loop controls="false" preload="auto" poster="">
+        <source src="Scene1.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="scene" id="scene2">
+    <div class="ambient" id="ambient2"></div>
+    <div class="headline">Good morning, Nilima ☀️</div>
+    <p class="body-text">I know yesterday was a lot. I just wanted your morning to start with something soft instead.</p>
+    <div class="gif-slot">
+      <video autoplay muted playsinline loop controls="false" preload="auto" poster="">
+        <source src="cat.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="scene" id="scene3">
+    <div class="ambient" id="ambient3"></div>
+    <div class="headline">for today, I hope...</div>
+    <p class="body-text">that your heart finds peace, your days feel lighter, and you remember that you are loved, valued, and worthy of kindness — even on the hardest days.</p>
+  </div>
+
+  <div id="noteScenes"></div>
+
+  <div class="dots" id="dots"></div>
+  <button class="prev-btn" id="prevBtn">‹ previous</button>
+  <button class="skip" id="skipBtn">next ›</button>
+
+<script>
+  /* EDIT: each string here becomes its own scene, typed out one at a time. */
+  const NOTE_PARAGRAPHS = [
+    "Hey Nilima, good morning. This is a message for you, and I appreciate that I got a girl like you💖, but I failed because our relationship is going bad.",
+    "I tried so hard to fix it, but after thinking about it too much, I finally decided not to force you to love me or force you to stay. I didn't want to lose a girl who is my happiness😊, but I was forcing you to love me. So now, you are free. Every girl deserves freedom.",
+    "Regarding what just happened yesterday, I don't know; it was just an inner feeling telling me that we are not good for each other. If you are thinking I left you because I found someone else, no, that is not it. I didn't expect this ending, but I will try my best to give 100% to our friendship❤️, and I care about you. Take your time, and you are free to call me because I am not on Instagram anymore.",
+    "I'm sorry. I know sorry is not enough, but I am a loser who is never going to be perfect for anyone. About my experience: You are the most beautiful girl I have ever met ✨. I really loved the time we spent together ❤️. You are just awesome in your own way—you have a great heart, and the little things you do for me mean a lot to me 💖. I will always remember the good times we shared ✨. But honestly, you deserve way better than me. Please forget what happened between us. I am just not built for love ❤️. This is a message I scheduled to send. See you soon. Bye, and take care of yourself without me."
+  ];
+
+  const staticScenes = ['landing','scene1','scene2','scene3'];
+  let scenes = [...staticScenes];
+  let current = 0;
+  let timer = null;
+  let sigEl, replayEl;
+  let isTyping = false;
+
+  const dotsEl = document.getElementById('dots');
+  const skipBtn = document.getElementById('skipBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const noteContainer = document.getElementById('noteScenes');
+
+  function seedAmbient(el, count){
+    for(let i=0;i<count;i++){
+      const f = document.createElement('div');
+      f.className = 'float';
+      const size = 14 + Math.random()*30;
+      f.style.width = size+'px'; f.style.height = size+'px';
+      f.style.left = Math.random()*90+'%'; f.style.top = Math.random()*80+'%';
+      f.style.animationDuration = (4+Math.random()*3)+'s';
+      f.style.animationDelay = (Math.random()*2)+'s';
+      el.appendChild(f);
+    }
+    for(let i=0;i<4;i++){
+      const s = document.createElement('div');
+      s.className = 'sparkle'; s.textContent = '✦';
+      s.style.left = Math.random()*90+'%'; s.style.top = Math.random()*80+'%';
+      s.style.animationDelay = (Math.random()*2.6)+'s';
+      el.appendChild(s);
+    }
+  }
+  seedAmbient(document.getElementById('ambient1'), 5);
+  seedAmbient(document.getElementById('ambient2'), 6);
+  seedAmbient(document.getElementById('ambient3'), 4);
+
+  function seedPetals(container, count){
+    for(let i=0;i<count;i++){
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = ['✿','❀','❁','☁'][i % 4];
+      p.style.left = Math.random()*92+'%';
+      p.style.top = 82 + Math.random()*10+'%';
+      p.style.animationDelay = (Math.random()*6)+'s';
+      p.style.animationDuration = (6 + Math.random()*4)+'s';
+      container.appendChild(p);
+    }
+  }
+
+  const ambient3 = document.getElementById('ambient3');
+  if(ambient3){ seedPetals(ambient3, 10); }
+
+  // Build one scene per note paragraph
+  NOTE_PARAGRAPHS.forEach((text, idx) => {
+    const id = 'note'+idx;
+    const div = document.createElement('div');
+    div.className = 'scene';
+    div.id = id;
+
+    const ambient = document.createElement('div');
+    ambient.className = 'ambient';
+    div.appendChild(ambient);
+    seedAmbient(ambient, 6);
+
+    const noteText = document.createElement('div');
+    noteText.className = 'note-text';
+    noteText.id = id+'-text';
+    div.appendChild(noteText);
+
+    if(idx === NOTE_PARAGRAPHS.length - 1){
+      sigEl = document.createElement('div');
+      sigEl.className = 'signature';
+      sigEl.textContent = '—  Faiz with love';
+      div.appendChild(sigEl);
+
+      const heartFadeEl = document.createElement('div');
+      heartFadeEl.className = 'heart-fade';
+      heartFadeEl.textContent = '💖';
+      div.appendChild(heartFadeEl);
+
+      replayEl = document.createElement('button');
+      replayEl.className = 'replay-btn';
+      replayEl.textContent = 'watch again';
+      div.appendChild(replayEl);
+    }
+
+    noteContainer.appendChild(div);
+    scenes.push(id);
+  });
+
+  // Build dots (one per scene after landing)
+  const dotCount = scenes.length - 1;
+  for(let i=0;i<dotCount;i++){
+    const d = document.createElement('span');
+    dotsEl.appendChild(d);
+  }
+
+  function updateControls(){
+    const idx = current - 1;
+    Array.from(dotsEl.children).forEach((d,i)=> d.classList.toggle('on', i===idx));
+    dotsEl.style.opacity = current===0 ? '0' : '1';
+
+    const showNext = current > 0 && current < scenes.length - 1;
+    skipBtn.style.opacity = showNext ? '1' : '0';
+    skipBtn.style.pointerEvents = showNext ? 'auto' : 'none';
+
+    const showPrev = current > 0;
+    prevBtn.style.opacity = showPrev ? '1' : '0';
+    prevBtn.style.pointerEvents = showPrev ? 'auto' : 'none';
+  }
+
+  function showScene(i){
+    if(i < 0 || i >= scenes.length) return;
+    scenes.forEach((id,idx)=>{
+      document.getElementById(id).classList.toggle('active', idx===i);
+    });
+    if(i === 2){
+      const glow = document.createElement('div');
+      glow.style.position='absolute';
+      glow.style.inset='0';
+      glow.style.background='radial-gradient(circle at 50% 0%, rgba(255,240,200,.65) 0%, rgba(255,240,200,0) 52%)';
+      glow.style.pointerEvents='none';
+      glow.style.zIndex='1';
+      glow.style.animation='fadeGlow 2.2s ease-out';
+      const scene = document.getElementById('scene2');
+      if(scene){
+        scene.appendChild(glow);
+        setTimeout(()=> glow.remove(), 2200);
+      }
+    }
+    current = i;
+    updateControls();
+    clearTimeout(timer);
+
+    const sceneId = scenes[i];
+    if(sceneId.startsWith('note')){
+      const paraIdx = parseInt(sceneId.replace('note',''), 10);
+      typeParagraph(paraIdx);
+      return;
+    }
+
+    isTyping = false;
+  }
+
+  function advance(){
+    if(current < scenes.length - 1){
+      showScene(current + 1);
+    } else if(current === scenes.length - 1){
+      showScene(0);
+    }
+  }
+
+  function goBack(){
+    if(current > 0) showScene(current - 1);
+  }
+
+  skipBtn.addEventListener('click', advance);
+  prevBtn.addEventListener('click', goBack);
+
+  function typeParagraph(paraIdx){
+    const text = NOTE_PARAGRAPHS[paraIdx];
+    const el = document.getElementById('note'+paraIdx+'-text');
+    el.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    cursor.textContent = '\u00A0';
+    let i = 0;
+    const totalMs = Math.max(text.length * 30, 3200);
+    const interval = totalMs / text.length;
+    const isLast = paraIdx === NOTE_PARAGRAPHS.length - 1;
+
+    isTyping = true;
+
+    function step(){
+      if(i < text.length){
+        el.textContent = text.slice(0, i+1);
+        el.appendChild(cursor);
+        i++;
+        timer = setTimeout(step, interval);
+      } else {
+        cursor.remove();
+        isTyping = false;
+        if(isLast){
+          sigEl.classList.add('show');
+          const heartFadeEl = el.parentElement.querySelector('.heart-fade');
+          if(heartFadeEl){
+            heartFadeEl.classList.add('show');
+            setTimeout(()=> heartFadeEl.classList.add('hide'), 3000);
+          }
+          replayEl.classList.add('show');
+        }
+      }
+    }
+    step();
+  }
+
+  function handleKeyboard(e){
+    const key = e.key;
+    if(['ArrowRight','ArrowDown','Enter',' '].includes(key)){
+      e.preventDefault();
+      if(current === 0 && !isTyping){ showScene(1); return; }
+      advance();
+    } else if(['ArrowLeft','ArrowUp'].includes(key)){
+      e.preventDefault();
+      goBack();
+    }
+  }
+
+  document.addEventListener('keydown', handleKeyboard);
+
+  document.addEventListener('pointerdown', (e)=>{
+    const target = e.target;
+    if(!target) return;
+    if(target.closest('button')) return;
+    if(isTyping) return;
+    if(current === 0){
+      showScene(1);
+      return;
+    }
+    if(current < scenes.length - 1){
+      showScene(current + 1);
+    } else {
+      showScene(0);
+    }
+  });
+
+  document.addEventListener('click', (e)=>{
+    if(e.target && e.target.classList.contains('replay-btn')){
+      sigEl.classList.remove('show');
+      replayEl.classList.remove('show');
+      const heartEl = document.querySelector('.heart-fade');
+      if(heartEl){ heartEl.classList.remove('show','hide'); }
+      showScene(0);
+    }
+  });
+</script>
+
+</body>
+</html>
